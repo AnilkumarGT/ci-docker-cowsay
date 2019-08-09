@@ -14,6 +14,6 @@ before_deploy:
 
 deploy:
   provider: script
-  script: docker push gtct/cowsay:v1
+  script: docker push gtct/cowsay
   on:
     branch: master
