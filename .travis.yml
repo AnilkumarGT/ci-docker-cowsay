@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+
+script:
+  - docker build --tag gtct/cowsay .
+  - docker run gtct/cowsay
+
+after_script:
+  - docker images
