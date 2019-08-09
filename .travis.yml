@@ -6,14 +6,10 @@ script:
   - docker build --tag gtct/cowsay .
   - docker run gtct/cowsay
 
-after_script:
-  - docker images
-  
-before_deploy:
+after_success:
+  - export TAG=`echo $TRAVIS_BRANCH`
+  - export IMAGE_NAME=gtct/cowsay
+  - docker build -t $IMAGE_NAME:$COMMIT .
+  - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
   - docker login -u $DH_USER -p $DH_PASS
-
-deploy:
-  provider: script
-  script: docker push gtct/cowsay
-  on:
-    branch: master
+  - docker push $IMAGE_NAME
