@@ -10,7 +10,7 @@ after_script:
   - docker images
   
 before_deploy:
-  - docker login -u $DH-USER-ID -p $DH-PASSWORD
+  - docker login -u $DH_USER -p $DH_PASS
 
 deploy:
   provider: script
