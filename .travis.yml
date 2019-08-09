@@ -8,3 +8,12 @@ script:
 
 after_script:
   - docker images
+  
+before_deploy:
+  - docker login -u "$DH-USER-ID" -p "$DH_PASSWORD"
+
+deploy:
+  provider: script
+  script: docker push run gtct/cowsay
+  on:
+    branch: master
