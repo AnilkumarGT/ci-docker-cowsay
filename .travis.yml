@@ -7,9 +7,9 @@ script:
   - docker run gtct/cowsay
 
 after_success:
-  - export TAG=`echo $TRAVIS_BRANCH`
+  - export TAG=$TRAVIS_JOB_ID
   - export IMAGE_NAME=gtct/cowsay
   - docker build -t $IMAGE_NAME:$COMMIT .
   - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
   - docker login -u $DH_USER -p $DH_PASS
-  - docker push $IMAGE_NAME
+  - docker push $IMAGE_NAME:$TAG
