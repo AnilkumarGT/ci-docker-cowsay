@@ -8,6 +8,7 @@ script:
 
 after_success:
   - export TAG=$TRAVIS_JOB_ID
+  - echo $TAG
   - export IMAGE_NAME=gtct/cowsay
   - docker build -t $IMAGE_NAME:$COMMIT .
   - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
