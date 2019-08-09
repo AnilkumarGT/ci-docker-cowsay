@@ -36,3 +36,21 @@ after_success:
   - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
   - docker login -u $DH_USER -p $DH_PASS
   - docker push $IMAGE_NAME
+
+---------- version 3..this works correctly with tags--------------
+
+sudo: required
+services:
+  - docker
+
+script:
+  - docker build --tag gtct/cowsay .
+  - docker run gtct/cowsay
+
+after_success:
+  - export TAG=$TRAVIS_BUILD_NUMBER
+  - echo $TAG
+  - export IMAGE_NAME=gtct/cowsay
+  - docker build -t $IMAGE_NAME -t $IMAGE_NAME:$TAG .
+  - docker login -u $DH_USER -p $DH_PASS
+  - docker push $IMAGE_NAME:$TAG
